@@ -1,27 +1,33 @@
-# DeathStarCalculator
+# DeathStarCalculator(Testing)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5. It has utilized a comprehensive testing strategy involving three types of tests: unit tests, API tests, and integration/UI tests.
 
-## Development server
+## API Tests
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+API tests utilize Jasmine. These tests are designed to assert the interaction of the application with the external world (typically a backend server).
 
-## Code scaffolding
+## Unit Tests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The unit tests are also performed using Jasmine. In these tests, the individual units of code (functions, methods, classes, etc.) are tested in isolation. While writing unit tests for the **SearchComponent**, a private method, **getVolume()**, was accessed. Typically, private methods should not be accessed in tests as they are considered implementation details. However, in this case, testing the **getVolume()** method directly was essential to ensure the correct behavior of the component. To circumvent the restriction due to the method's private scope, the method was accessed by casting the component to any:
 
-## Build
+  `const spyGetVolume = spyOn(component as any, 'getVolume').and.returnValue(Promise.resolve(600091307465.65));`
+  
+## Integration/UI Tests (End-to-End)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Integration tests (or UI tests) are performed using [Cypress](https://www.cypress.io/). This tool was chosen due to its efficiency and straightforward approach for end-to-end testing. These tests ensure that the integrated components of the application function as expected when they interact with each other, and that the UI behaves as expected in response to user actions.
 
-## Running unit tests
+## Run Tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Unit and API tests
 
-## Running end-to-end tests
+To run the unit and API tests, use the following command in the project directory:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  `ng test`
 
-## Further help
+### Integration/UI tests
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To run the Integration/UI tests, use the following command in the **root/e2e_test** directory:
+
+  `npx cypress open`
+
+
